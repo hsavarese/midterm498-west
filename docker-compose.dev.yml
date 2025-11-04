@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: ./backend       
+    container_name: midterm-app-dev
+    ports: ["3000:3000"]
+    environment: ["NODE_ENV=development","PORT=3000"]
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm start
+    restart: unless-stopped
+
+  nginx:
+    build:
+      context: ./nginx           
+    container_name: midterm-nginx-dev
+    ports: ["8080:80"]
+    depends_on: [app]
+    restart: unless-stopped

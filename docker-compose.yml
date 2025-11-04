@@ -1,0 +1,23 @@
+services:
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: midterm-app
+    expose:
+      - "3000"
+    networks:
+      default:
+        aliases:
+          - backend-nodejs
+          - app
+    restart: unless-stopped
+
+  nginx:
+    build: ./nginx
+    container_name: midterm-nginx
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    restart: unless-stopped
