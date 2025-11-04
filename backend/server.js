@@ -4,6 +4,11 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
+
+const users = []; // Array of { username, password }
+const comments = []; // Array of { author, text, createdAt }
+const sessions = new Map(); // Map where key is sessionId → { user, expires }
+
 // Set up Handlebars engine with layouts and partials
 app.engine('hbs', engine({
   extname: '.hbs',
