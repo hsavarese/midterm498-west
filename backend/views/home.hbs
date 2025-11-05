@@ -4,11 +4,18 @@
 </div>
 
 <div class="content">
-    <div class="posts-section">
-        <h2>Recent Posts</h2>
-        <div class="post-list">
-            <p>No posts yet... Be the first to share your story!</p>
-            <a href="/new" class="btn btn-primary">Create First Post</a>
+    <div class="welcome-section">
+        <h2>Welcome to the Wild West Forum</h2>
+        <p>Join our community of frontier folk sharing stories, tips, and tales from the Old West!</p>
+        
+        <div class="quick-links">
+            <a href="/comments" class="btn btn-primary">View All Comments</a>
+            {{#if user}}
+                <a href="/comment-new" class="btn btn-secondary">Share Your Story</a>
+            {{else}}
+                <a href="/register" class="btn btn-secondary">Join the Community</a>
+                <a href="/login" class="btn btn-outline">Already a Member? Login</a>
+            {{/if}}
         </div>
     </div>
 </div>

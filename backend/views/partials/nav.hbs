@@ -5,8 +5,15 @@
         </div>
         <ul class="nav-menu">
             <li><a href="/">Home</a></li>
-            <li><a href="/new">New Post</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="/comments">Feed</a></li>
+            {{#if user}}
+                <li><a href="/comment-new">New Comment</a></li>
+                <li><a href="/logout">Logout</a></li>
+                <li class="user-info">Logged in as {{user.username}}</li>
+            {{else}}
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Login</a></li>
+            {{/if}}
         </ul>
     </div>
 </nav>

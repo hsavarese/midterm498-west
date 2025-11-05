@@ -1,0 +1,29 @@
+<div class="form-container">
+    <h1>Join the Wild West Forum</h1>
+    <p>Create your account to start sharing your frontier tales!</p>
+
+    {{#if error}}
+        <div class="alert alert-error">
+            {{error}}
+        </div>
+    {{/if}}
+
+    <form action="/register" method="POST" class="auth-form">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required placeholder="Choose your cowboy name">
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your secret phrase">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+
+    <div class="auth-links">
+        <p>Already have an account? <a href="/login">Login here</a></p>
+        <p><a href="/">← Back to Home</a></p>
+    </div>
+</div>

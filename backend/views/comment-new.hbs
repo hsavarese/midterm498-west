@@ -1,0 +1,31 @@
+<div class="form-container">
+    <h1>Share Your Frontier Tale</h1>
+    <p>Tell us about your adventures in the Wild West, {{user.username}}!</p>
+
+    {{#if error}}
+        <div class="alert alert-error">
+            {{error}}
+        </div>
+    {{/if}}
+
+    <form action="/comment-new" method="POST" class="comment-form">
+        <div class="form-group">
+            <label for="comment">Your Story:</label>
+            <textarea 
+                id="comment" 
+                name="text" 
+                required 
+                placeholder="Share your tale from the frontier... What adventures have you had? What wisdom have you gained? Tell us your story!"
+                rows="6">{{text}}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Post Your Tale</button>
+            <a href="/comments" class="btn btn-outline">Cancel</a>
+        </div>
+    </form>
+
+    <div class="form-links">
+        <p><a href="/comments">← Back to All Tales</a></p>
+    </div>
+</div>
