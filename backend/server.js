@@ -8,6 +8,18 @@ const app = express();
 const users = [];
 const comments = [];
 
+comments.push({
+  author: "System",
+  text: "world wake",
+  createdAt: new Date().toLocaleString()
+});
+
+comments.push({
+  author: "Admin", 
+  text: "<b>bold</b>",
+  createdAt: new Date().toLocaleString()
+});
+
 function getCurrentUser(req) {
   if (req.cookies && req.cookies.loggedIn === 'true' && req.cookies.user) {
     return { username: req.cookies.user };
