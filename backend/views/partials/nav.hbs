@@ -1,14 +1,18 @@
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-brand">
-            <a href="/">🤠 Wild West Forum</a>
+            <a href="/">Wild West Forum</a>
         </div>
         <ul class="nav-menu">
             <li><a href="/">Home</a></li>
             <li><a href="/comments">Feed</a></li>
             {{#if user}}
                 <li><a href="/comment-new">New Comment</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li>
+                    <form method="POST" action="/logout" style="display: inline; margin: 0;">
+                        <button type="submit" class="btn-logout">Logout</button>
+                    </form>
+                </li>
                 <li class="user-info">Logged in as {{user.username}}</li>
             {{else}}
                 <li><a href="/register">Register</a></li>
