@@ -1,12 +1,14 @@
 import express from "express";
 import { engine } from "express-handlebars";
 import cookieParser from "cookie-parser";
+import { v4 as uuidv4 } from "uuid";
 
 const app = express();
 
 
 const users = [];
 const comments = [];
+const sessions = {};
 
 comments.push({
   author: "System",
@@ -21,8 +23,11 @@ comments.push({
 });
 
 function getCurrentUser(req) {
-  if (req.cookies && req.cookies.loggedIn === 'true' && req.cookies.user) {
-    return { username: req.cookies.user };
+  if (req.cookies && req.cookies.sessionId) {
+    const session = sessions[req.cookies.sessionId];
+    if (session && new Date() < new Date(session.expires)) {
+      return { username: session.user };
+    }
   }
   return null;
 }
@@ -103,6 +108,17 @@ app.post("/login", (req, res) => {
     return res.render('login', { error: "Invalid username or password." });
   }
   
+  const sessionId = uuidv4();
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 1);
+  
+  sessions[sessionId] = {
+    user: username,
+    sessionId: sessionId,
+    expires: expires
+  };
+  
+  res.cookie('sessionId', sessionId);
   res.cookie('loggedIn', 'true');
   res.cookie('user', username);
   
@@ -110,6 +126,12 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/logout", (req, res) => {
+  const { sessionId } = req.cookies;
+  if (sessionId && sessions[sessionId]) {
+    delete sessions[sessionId];
+  }
+  
+  res.clearCookie('sessionId');
   res.clearCookie('loggedIn');
   res.clearCookie('user');
   
