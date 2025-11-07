@@ -17,7 +17,7 @@ services:
     build: ./nginx
     container_name: midterm-nginx
     ports:
-      - "8080:80"
+      - "22:80"
     depends_on:
       - app
     restart: unless-stopped
