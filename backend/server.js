@@ -32,7 +32,7 @@ function getCurrentUser(req) {
   return null;
 }
 
-// Set up Handlebars engine with layouts and partials
+
 app.engine('hbs', engine({
   extname: '.hbs',
   defaultLayout: 'main',
