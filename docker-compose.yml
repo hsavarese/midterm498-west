@@ -9,7 +9,7 @@ services:
     networks:
       default:
         aliases:
-          - backend-nodejs
+          - backend-nodejs 
           - app
     restart: unless-stopped
 

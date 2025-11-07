@@ -10,19 +10,19 @@ const users = [];
 const comments = [];
 const sessions = {};
 
-comments.push({
+comments.push({ //example comment
   author: "System",
   text: "world wake",
   createdAt: new Date().toLocaleString()
 });
 
-comments.push({
+comments.push({ //example comment
   author: "Admin", 
   text: "<b>bold</b>",
   createdAt: new Date().toLocaleString()
 });
 
-function getCurrentUser(req) {
+function getCurrentUser(req) { //get current user from session
   if (req.cookies && req.cookies.sessionId) {
     const session = sessions[req.cookies.sessionId];
     if (session && new Date() < new Date(session.expires)) {
@@ -108,9 +108,9 @@ app.post("/login", (req, res) => {
     return res.render('login', { error: "Invalid username or password." });
   }
   
-  const sessionId = uuidv4();
+  const sessionId = uuidv4(); // generate unique session ID
   const expires = new Date();
-  expires.setDate(expires.getDate() + 1);
+  expires.setDate(expires.getDate() + 1); // session expires in 1 day
   
   sessions[sessionId] = {
     user: username,
@@ -131,14 +131,14 @@ app.post("/logout", (req, res) => {
     delete sessions[sessionId];
   }
   
-  res.clearCookie('sessionId');
+  res.clearCookie('sessionId'); 
   res.clearCookie('loggedIn');
   res.clearCookie('user');
   
   res.redirect('/');
 });
 
-app.post("/comment", (req, res) => {
+app.post("/comment", (req, res) => { //create comment
   const user = getCurrentUser(req);
   if (!user) {
     return res.render('login', { error: "Please log in to post a comment." });
@@ -156,11 +156,11 @@ app.post("/comment", (req, res) => {
   comments.push({
     author: user.username,
     text: text.trim(),
-    createdAt: new Date().toLocaleString()
+    createdAt: new Date().toLocaleString() //format date to readable string
   });
   
   res.redirect('/comments');
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Node on ${PORT}`));
+const PORT = process.env.PORT || 3000; // Use environment variable or default to 3000
+app.listen(PORT, () => console.log(`Node on ${PORT}`)); // IGNORE used for testing in lcal environment
